@@ -79,8 +79,10 @@ brew install git
 사전 요구사항이 모두 충족된 후, 아래 항목을 사용자에게 확인합니다:
 
 1. **프로젝트명** — `sfdx-project.json`, `package.json` 등에 사용할 이름 (예: "MyCompany CRM")
-2. **대상 프로젝트 경로** — 적용할 프로젝트의 루트 경로 (현재 열린 프로젝트라면 생략 가능)
-3. **기존 Salesforce 프로젝트 여부** — 이미 `sfdx-project.json`이 있는 프로젝트인지 확인
+2. **작성자 이름** — 코드 주석의 Author에 사용할 이름 (예: "홍길동")
+3. **작성자 이메일** — 코드 주석의 Last Modified By에 사용할 이메일 (예: "hong@example.com")
+4. **대상 프로젝트 경로** — 적용할 프로젝트의 루트 경로 (현재 열린 프로젝트라면 생략 가능)
+5. **기존 Salesforce 프로젝트 여부** — 이미 `sfdx-project.json`이 있는 프로젝트인지 확인
 
 ## 2. 적용 순서
 
@@ -88,13 +90,21 @@ brew install git
 
 ### 2-1. 설정 파일 (플레이스홀더 치환 필요)
 
-아래 파일에서 `{{PROJECT_NAME}}`을 사용자가 알려준 프로젝트명으로 치환합니다:
+아래 파일의 플레이스홀더를 사용자 입력값으로 치환합니다:
+
+**`{{PROJECT_NAME}}` 치환:**
 
 | 파일 | 치환 대상 |
 |---|---|
 | `sfdx-project.json` | `"name"` 값 |
 | `package.json` | `"description"` 값 |
 | `config/project-scratch-def.json` | `"orgName"` 값 |
+
+**`{{AUTHOR_NAME}}`, `{{AUTHOR_EMAIL}}` 치환:**
+
+| 파일 | 치환 대상 |
+|---|---|
+| `.cursor/rules/salesforce.mdc` | 주석 템플릿의 Author, Last Modified By 등 모든 `{{AUTHOR_NAME}}`, `{{AUTHOR_EMAIL}}` |
 
 ### 2-2. 설정 파일 (그대로 복사)
 
@@ -111,11 +121,15 @@ brew install git
 - `config/deploy-gate-rules.json`
 - `manifest/package.xml`
 
-### 2-3. CLAUDE.md (핵심 — 그대로 복사)
+### 2-3. Cursor 규칙 (`.cursor/rules/`)
+
+- `.cursor/rules/salesforce.mdc` — Salesforce 개발 컨벤션, 주석 규칙, 코딩 표준 (플레이스홀더 치환 후 복사)
+
+### 2-4. CLAUDE.md (핵심 — 그대로 복사)
 
 프로젝트 루트에 `CLAUDE.md`를 생성합니다. 이 파일이 이후 모든 Claude 세션의 작업 규칙이 됩니다.
 
-### 2-4. 영속 컨텍스트 (`context/`)
+### 2-5. 영속 컨텍스트 (`context/`)
 
 아래 파일을 모두 생성합니다. 내용은 이 저장소의 템플릿을 그대로 사용합니다:
 
@@ -126,7 +140,7 @@ brew install git
 - `context/open_tasks.md`
 - `context/failure_playbook.md`
 
-### 2-5. 문서 (`docs/`)
+### 2-6. 문서 (`docs/`)
 
 - `docs/architecture.md`
 - `docs/deploy-gate-가이드.md`
@@ -139,7 +153,7 @@ brew install git
 - `docs/technical-debt/register.md`
 - `docs/technical-debt/items/.gitkeep`
 
-### 2-6. 배포 스크립트 (`scripts/`)
+### 2-7. 배포 스크립트 (`scripts/`)
 
 - `scripts/deploy-gate-check.ps1`
 - `scripts/deploy-with-gate.ps1`
@@ -148,7 +162,7 @@ brew install git
 - `scripts/deploy_gate_check.py`
 - `scripts/deploy_org_check.py`
 
-### 2-7. Salesforce 소스 디렉토리 (`force-app/`)
+### 2-8. Salesforce 소스 디렉토리 (`force-app/`)
 
 빈 디렉토리 구조를 `.gitkeep`과 함께 생성합니다:
 
@@ -169,7 +183,7 @@ force-app/main/default/
   flows/
 ```
 
-### 2-8. 로그 디렉토리
+### 2-9. 로그 디렉토리
 
 - `logs/failures/.gitkeep`
 
