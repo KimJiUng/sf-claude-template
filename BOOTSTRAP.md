@@ -104,7 +104,7 @@ brew install git
 
 | 파일 | 치환 대상 |
 |---|---|
-| `.cursor/rules/salesforce.mdc` | 주석 템플릿의 Author, Last Modified By 등 모든 `{{AUTHOR_NAME}}`, `{{AUTHOR_EMAIL}}` |
+| `docs/coding-standards.md` | 주석 템플릿의 Author, Last Modified By 등 모든 `{{AUTHOR_NAME}}`, `{{AUTHOR_EMAIL}}` |
 
 ### 2-2. 설정 파일 (그대로 복사)
 
@@ -121,15 +121,11 @@ brew install git
 - `config/deploy-gate-rules.json`
 - `manifest/package.xml`
 
-### 2-3. Cursor 규칙 (`.cursor/rules/`)
-
-- `.cursor/rules/salesforce.mdc` — Salesforce 개발 컨벤션, 주석 규칙, 코딩 표준 (플레이스홀더 치환 후 복사)
-
-### 2-4. CLAUDE.md (핵심 — 그대로 복사)
+### 2-3. CLAUDE.md (핵심 — 그대로 복사)
 
 프로젝트 루트에 `CLAUDE.md`를 생성합니다. 이 파일이 이후 모든 Claude 세션의 작업 규칙이 됩니다.
 
-### 2-5. 영속 컨텍스트 (`context/`)
+### 2-4. 영속 컨텍스트 (`context/`)
 
 아래 파일을 모두 생성합니다. 내용은 이 저장소의 템플릿을 그대로 사용합니다:
 
@@ -140,9 +136,10 @@ brew install git
 - `context/open_tasks.md`
 - `context/failure_playbook.md`
 
-### 2-6. 문서 (`docs/`)
+### 2-5. 문서 (`docs/`)
 
 - `docs/architecture.md`
+- `docs/coding-standards.md` — Salesforce 코딩 표준 및 주석 규칙 (플레이스홀더 치환 후 복사)
 - `docs/deploy-gate-가이드.md`
 - `docs/orchestration-가이드.md`
 - `docs/design/README.md`
@@ -153,7 +150,7 @@ brew install git
 - `docs/technical-debt/register.md`
 - `docs/technical-debt/items/.gitkeep`
 
-### 2-7. 배포 스크립트 (`scripts/`)
+### 2-6. 배포 스크립트 (`scripts/`)
 
 - `scripts/deploy-gate-check.ps1`
 - `scripts/deploy-with-gate.ps1`
@@ -162,7 +159,7 @@ brew install git
 - `scripts/deploy_gate_check.py`
 - `scripts/deploy_org_check.py`
 
-### 2-8. Salesforce 소스 디렉토리 (`force-app/`)
+### 2-7. Salesforce 소스 디렉토리 (`force-app/`)
 
 빈 디렉토리 구조를 `.gitkeep`과 함께 생성합니다:
 
@@ -183,7 +180,7 @@ force-app/main/default/
   flows/
 ```
 
-### 2-9. 로그 디렉토리
+### 2-8. 로그 디렉토리
 
 - `logs/failures/.gitkeep`
 

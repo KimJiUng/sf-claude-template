@@ -68,11 +68,12 @@
 작업을 시작하기 전에 아래 파일을 **반드시** 순서대로 읽습니다:
 
 1. `docs/architecture.md` — 아키텍처 기준
-2. `context/project_state.md` — 현재 프로젝트 상태
-3. `context/failure_playbook.md` — 반복 실패 패턴/재발 방지 규칙
-4. `context/open_tasks.md` — 진행 중/대기 중 작업
-5. `context/decisions.md` — 의사결정 이력
-6. `context/session_summary.md` — 최근 세션 요약
+2. `docs/coding-standards.md` — Salesforce 코딩 표준 및 주석 규칙
+3. `context/project_state.md` — 현재 프로젝트 상태
+4. `context/failure_playbook.md` — 반복 실패 패턴/재발 방지 규칙
+5. `context/open_tasks.md` — 진행 중/대기 중 작업
+6. `context/decisions.md` — 의사결정 이력
+7. `context/session_summary.md` — 최근 세션 요약
 
 ### 사이클 종료 시 (필수 갱신)
 
@@ -208,5 +209,6 @@ npm run deploy:safe -- -TargetOrg <ORG_ALIAS>
 - `context/README.md` — 영속 컨텍스트 운영 규칙 (필수)
 - `context/failure_playbook.md` — 실패 패턴 오답노트
 - `docs/architecture.md` — 아키텍처 기준
+- `docs/coding-standards.md` — Salesforce 코딩 표준 및 주석 규칙
 - `docs/deploy-gate-가이드.md` — Deploy Gate 상세
 - `docs/orchestration-가이드.md` — 오케스트레이션 상세

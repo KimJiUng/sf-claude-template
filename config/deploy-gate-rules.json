@@ -2,6 +2,7 @@
   "required_files": [
     "CLAUDE.md",
     "docs/architecture.md",
+    "docs/coding-standards.md",
     "docs/deploy-gate-가이드.md",
     "docs/orchestration-가이드.md",
     "docs/design/README.md",
