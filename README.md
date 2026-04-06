@@ -7,7 +7,7 @@ Claude(AI)와 함께 Salesforce 프로젝트를 체계적으로 개발하기 위
 Claude(Cursor, Claude Code 등)에서 아래와 같이 요청하면 됩니다:
 
 ```
-이 저장소를 참고해서 내 프로젝트에 적용해줘 → https://github.com/YOUR_ORG/sf-claude-template
+이 저장소를 참고해서 내 프로젝트에 적용해줘 → https://github.com/KimJiUng/sf-claude-template
 ```
 
 Claude가 `BOOTSTRAP.md`를 읽고 현재 프로젝트에 구조, 설정, 규칙을 자동 적용합니다.
