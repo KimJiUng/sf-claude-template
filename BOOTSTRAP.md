@@ -29,7 +29,8 @@ python --version      # Python 3
 | Python 3 | 설치됨 / **미설치** | 3.x.x |
 
 3. **미설치 항목이 있는 경우**, 사용자에게 설치할지 물어봅니다.
-4. 사용자가 동의하면 아래 설치 명령어를 안내하거나 실행합니다.
+4. 전역 설치, 패키지 설치, 시스템 설정 변경은 외부 side effect가 있으므로 사용자가 명시적으로 동의한 뒤에만 실행합니다.
+5. 사용자가 동의하면 아래 설치 명령어를 안내하거나 실행합니다.
 
 ### 설치 방법 (Windows)
 
@@ -141,6 +142,7 @@ brew install python
 - `docs/coding-standards.md` — Salesforce 코딩 표준 및 주석 규칙 (플레이스홀더 치환 후 복사)
 - `docs/deploy-gate-가이드.md`
 - `docs/orchestration-가이드.md`
+- `docs/recursive-improvement-가이드.md`
 - `docs/design/README.md`
 - `docs/design/design-artifacts.md`
 - `docs/requirements/README.md`
@@ -218,7 +220,7 @@ force-app/main/default/
 1. `CLAUDE.md`는 Claude 세션의 작업 규칙으로 동작합니다
 2. `AGENTS.md`는 Codex 세션의 작업 규칙으로 동작합니다
 3. `context/` 폴더가 세션 간 영속 컨텍스트로 사용됩니다
-4. Salesforce 소스 작업 전 `npm run work:snapshot -- --target-org <ORG_ALIAS> --label <작업명> --files <파일...>`로 로컬 백업과 Org snapshot을 생성합니다
+4. Salesforce 소스 또는 Org 영향 작업 전 `npm run work:snapshot -- --target-org <ORG_ALIAS> --label <작업명> --files <파일...>`로 로컬 백업과 Org snapshot을 생성합니다
 5. 배포 전 `npm run deploy-gate:check`로 규칙 검증과 기술부채 후보 수집이 필요합니다
 6. Org 배포는 사용자가 생성/수정/삭제 목록과 기술부채 후보를 확인하고 승인한 뒤에만 진행합니다
 7. `context/project_state.md`에 현재 프로젝트 상태를 기록해두면 다음 세션에서 이어서 작업할 수 있습니다

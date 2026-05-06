@@ -24,18 +24,26 @@
 
 ## 사이클 시작 시 (필수 읽기)
 
-1. `docs/architecture.md`
-2. `context/project_state.md`
-3. `context/failure_playbook.md`
-4. `context/open_tasks.md`
-5. `context/decisions.md`
-6. `context/session_summary.md`
+작업을 시작하기 전에 필요한 최소 컨텍스트를 먼저 읽습니다. 모든 작업에 공통으로 아래 파일을 확인합니다:
+
+1. `context/project_state.md`
+2. `context/failure_playbook.md`
+3. `context/open_tasks.md`
+4. `context/decisions.md`
+5. `context/session_summary.md`
+
+작업 유형에 따라 아래 문서를 추가로 읽습니다:
+
+- Salesforce 설계/구현: `docs/architecture.md`, `docs/coding-standards.md`
+- 배포/검증: `docs/deploy-gate-가이드.md`
+- 오케스트레이션 변경: `docs/orchestration-가이드.md`
+- 디자인/LWC 화면 작업: `docs/design/**`
 
 작업 시작 전에 현재 작업이 과거 실패 패턴(`failure_playbook`)과 충돌하는지 확인합니다.
 
 ## 사이클 종료 시 (필수 갱신)
 
-의미 있는 작업 단계(분석/구현/테스트) 종료 시 아래 파일을 갱신합니다.
+의미 있는 상태 변화(요구사항 확정, 설계 결정, 구현/검증 결과, 신규 리스크)가 생기면 아래 파일을 갱신합니다.
 
 1. `context/project_state.md`
 2. `context/session_summary.md`

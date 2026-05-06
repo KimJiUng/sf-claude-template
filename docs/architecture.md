@@ -18,7 +18,7 @@
 - Salesforce 보안 규칙(CRUD/FLS) 준수
 - Bulkify 기준 준수 (Trigger/Service)
 - 테스트 전략: LWC 단위 테스트 + Apex 테스트
-- 작업 전 로컬 백업 및 Org snapshot 생성
+- Salesforce 소스/Org 영향 작업 전 로컬 백업 및 Org snapshot 생성
 - 배포 전 Deploy Gate 필수 통과
 - 사용자 승인 전 Org 배포 금지
 

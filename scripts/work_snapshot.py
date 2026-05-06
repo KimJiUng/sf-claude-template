@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a local backup and target-org snapshot before AI work starts."""
+"""Create a local backup and target-org snapshot before Salesforce/Org-impact work."""
 from __future__ import annotations
 
 import argparse
@@ -51,7 +51,7 @@ def retrieve_org_snapshot(root: Path, session_dir: Path, target_org: str, metada
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Create local backup and org-start snapshot.")
+    parser = argparse.ArgumentParser(description="Create local backup and org-start snapshot for Salesforce/Org-impact work.")
     parser.add_argument("--target-org", required=True)
     parser.add_argument("--label", default="work")
     parser.add_argument("--files", nargs="+", required=True)

@@ -40,8 +40,6 @@ Salesforce DX(SFDX) 기반 프로젝트입니다.
 * ===========================================================================
 * 1.0  DD/MM/YYYY   {{AUTHOR_NAME}}         Create
 ****************************************************************************************
-* //TO-DO
-****************************************************************************************/
 public with sharing class AccountService {
     // ...
 }
@@ -109,8 +107,6 @@ private void validateInput(String input) {
 * ===========================================================================
 * 1.0  DD/MM/YYYY     {{AUTHOR_NAME}}         Create
 ****************************************************************************************
-* //TO-DO
-****************************************************************************************/
 -->
 <template>
     <!-- ... -->
@@ -177,8 +173,8 @@ sf org open                               # Org 열기
 
 ### 필수 규칙
 
-1. **with sharing 기본**: 모든 Apex 클래스는 `with sharing` 사용
-2. **FLS/CRUD 체크 필수**: `Security.stripInaccessible()` 또는 `WITH SECURITY_ENFORCED`
+1. **with sharing 기본**: 업무 로직 Apex 클래스는 `with sharing`을 기본으로 사용합니다. 테스트 클래스, DTO/Wrapper, `inherited sharing`이 더 적합한 진입점은 예외 사유를 코드 리뷰에 남깁니다.
+2. **FLS/CRUD 체크 필수**: `Security.stripInaccessible()`, `WITH SECURITY_ENFORCED`, 사용자 모드 DML/SOQL 등 현재 코드 패턴에 맞는 보안 검사를 적용합니다.
 3. **Loop 내 DML/SOQL 금지**: Bulkify 필수
 4. **Trigger.new/old 직접 접근 금지**: Map으로 변환하여 사용
 5. **상수 사용 필수**: ID나 조건값(Magic Number/String) 하드코딩을 금지하며, 클래스 상단에 상수(`private static final`)로 선언하거나 Custom Label/Metadata를 사용
@@ -251,7 +247,7 @@ public with sharing class AccountService {
 ### 필수 규칙
 
 1. **@api**: 외부 공개 속성
-2. **@track**: 상태 관리 (반응형)
+2. **@track**: 중첩 객체/배열의 내부 변경 감지가 필요한 경우에만 사용합니다. 일반 필드는 기본 반응성을 우선 사용합니다.
 3. **@wire**: Salesforce 데이터 조회
 4. **UI 안정성 (Spinner)**: 서버(Apex) 호출 등 대기 시간이 발생하는 작업 시 반드시 Loading Spinner를 노출하여 중복 클릭 방지
 5. **명시적 에러 피드백**: Imperative Apex 호출 시 `catch` 블록에서 Toast 이벤트를 발생시켜 사용자에게 에러 상황을 명시적으로 알림

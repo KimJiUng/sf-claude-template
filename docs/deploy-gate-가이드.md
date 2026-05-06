@@ -9,7 +9,7 @@ Hard Gate 위반이 발견되면 즉시 종료하여 배포를 중단하고, Rev
 ## 실행 방법
 
 ```bash
-# 작업 시작 전 로컬 백업 + Org 시작 snapshot
+# Salesforce 소스/Org 영향 작업 시작 전 로컬 백업 + Org 시작 snapshot
 npm run work:snapshot -- --target-org YOUR_ORG_ALIAS --label 작업명 --files force-app/main/default/classes/Sample.cls
 
 # 기술부채 후보 수집
@@ -78,6 +78,12 @@ Review Gate (`npm run debt:scan`)
 - 종료 코드 `2`로 즉시 종료
 - 배포 명령을 실행하지 않음
 - 사용자에게 위반 내용을 즉시 보고하고 수정 방향을 제안
+
+## Snapshot 적용 범위
+
+- Salesforce 소스 또는 Org에 영향을 주는 작업은 수정 전에 `work:snapshot`을 실행합니다.
+- 문서/설정만 수정하고 Org에 영향이 없는 작업에는 Org snapshot을 요구하지 않습니다.
+- 배포를 진행하려면 작업 시작 snapshot, 현재 로컬, 배포 직전 Org 최신본을 비교할 수 있어야 합니다.
 
 ## 규칙 확장 방법
 

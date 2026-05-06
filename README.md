@@ -27,9 +27,9 @@ AccountService에 고객 등급 계산 로직 추가해줘.
 AI는 바로 배포하지 않고 아래 순서로 진행합니다.
 
 ```text
-요구사항 확인
+요구사항 확인(필요 시 좁게 질문, 저위험 작업은 가정 후 진행)
 → 영향 파일 정리
-→ 작업 전 local-backup + org-start snapshot 생성
+→ Salesforce 소스/Org 영향 작업이면 local-backup + org-start snapshot 생성
 → 구현
 → 자체리뷰
 → 기술부채 후보 자동 수집
@@ -69,11 +69,12 @@ AI가 구현을 마치면 배포 전에 다음 내용을 보고합니다.
 | 기능 | 설명 |
 |---|---|
 | **영속 컨텍스트** | `context/` 폴더로 세션 간 작업 상태를 유지합니다. 채팅이 끊겨도 이전 작업을 이어갈 수 있습니다. |
-| **오케스트레이션** | 요구사항 → 기술설계 → 작업 snapshot → 구현 → 자체리뷰 → 사용자 승인 → 배포의 단계별 절차를 따릅니다. |
-| **작업 Snapshot** | 작업 전 로컬 백업과 Org 시작본을 `backups/`에 생성하여 복구와 3-way 비교 기준으로 사용합니다. |
+| **오케스트레이션** | 요구사항 → 기술설계 → 작업 snapshot(필요시) → 구현 → 자체리뷰 → 사용자 승인 → 배포의 단계별 절차를 따릅니다. |
+| **작업 Snapshot** | Salesforce 소스/Org 영향 작업 전 로컬 백업과 Org 시작본을 `backups/`에 생성하여 복구와 3-way 비교 기준으로 사용합니다. |
 | **Deploy Gate** | 배포 전 규칙 위반과 Org 충돌을 검사하고, 안전한 비충돌 변경은 자동 병합합니다. |
 | **Review Gate** | 수정한 파일에서 기술부채 후보를 자동 수집하여 `review-needed` 상태로 누적합니다. |
-| **하네스 질문** | 요구사항이 불명확하면 구현 전에 AI 에이전트가 먼저 질문하여 방향을 확인합니다. |
+| **재귀 개선 루프** | 반복 문제나 반복 요청을 적절한 Markdown 문서에 반영하여 다음 작업 기준으로 승격합니다. |
+| **하네스 질문** | 결과나 리스크가 달라지는 누락 정보가 있을 때 AI 에이전트가 좁게 질문합니다. |
 | **실패 플레이북** | 반복되는 실패 패턴을 기록하고 재발을 방지합니다. |
 
 ## 디렉토리 구조
@@ -88,7 +89,7 @@ AI가 구현을 마치면 배포 전에 다음 내용을 보고합니다.
 ├── config/                 ← 검사 규칙, Scratch Org 설정
 ├── force-app/              ← Salesforce 소스 코드
 ├── manifest/               ← 배포 매니페스트
-├── backups/                ← 작업 전 로컬 백업 및 Org snapshot
+├── backups/                ← Salesforce 소스/Org 영향 작업 전 백업 및 snapshot
 └── logs/                   ← 실패 기록 보관소
 ```
 
@@ -111,7 +112,8 @@ npm run deploy:safe -- --target-org <ORG_ALIAS>
 
 ## 작업 Snapshot
 
-작업 전 snapshot은 AI가 소스 수정 전에 생성합니다.
+작업 전 snapshot은 AI가 Salesforce 소스 또는 Org에 영향을 주는 수정 전에 생성합니다.
+문서/설정만 수정하고 Org에 영향이 없는 작업에는 Org snapshot을 요구하지 않습니다.
 
 ```bash
 npm run work:snapshot -- --target-org devOrg --label account-grade --files force-app/main/default/classes/AccountService.cls
@@ -160,6 +162,21 @@ Review Gate는 작업 영향 파일에서 다음 패턴을 찾습니다.
 
 발견한 후보는 `docs/technical-debt/register.md`에 `review-needed` 상태로 쌓입니다.
 사람은 나중에 확인하면서 `accepted`, `resolved`, `skipped` 중 하나로 정리하면 됩니다.
+
+## 재귀 개선 루프
+
+사용 중 반복되는 문제나 반복되는 사용자 요청은 문서 규칙으로 승격합니다.
+
+```text
+발견 → 기록 → 승격 → 적용 → 검증
+```
+
+예를 들어 사용자가 여러 번 "배포 전에 파일 목록을 먼저 보여줘"라고 요청하면, AI는 관련 규칙을 `AGENTS.md`, `CLAUDE.md`, `docs/orchestration-가이드.md`, `README.md`에 반영할 수 있습니다.
+
+반복 실패는 `context/failure_playbook.md`에 기록하고, 배포/검증 기준은 `docs/deploy-gate-가이드.md`에 반영합니다.
+코딩 패턴이나 설계 기준은 `docs/coding-standards.md`, `docs/architecture.md`에 반영합니다.
+
+자세한 기준은 `docs/recursive-improvement-가이드.md`를 참고합니다.
 
 ## 직접 실행용 래퍼
 
